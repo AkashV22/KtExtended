@@ -11,19 +11,16 @@ fun <K, V> IndexedValue<Map.Entry<K, V>>.toIndexedKeyValuePair(): IndexedKeyValu
     return IndexedKeyValuePair(index, key, value)
 }
 
-fun <T> Iterable<T>.withIndex(indexOrigin: Int): Iterable<IndexedValue<T>> =
-        this.withIndexBase(indexOrigin) { calculatedIndex: Int, value: T -> IndexedValue(calculatedIndex, value) }
+fun <T> Iterable<T>.withIndex(indexOrigin: Int): Iterable<IndexedValue<T>> = this.withIndexBase(indexOrigin) { it }
 
 fun <K, V> Map<K, V>.withIndex(indexOrigin: Int = 0): Iterable<IndexedKeyValuePair<K, V>> =
-        this.entries.withIndexAndKeyValuePair()
+        this.entries.withIndexAndKeyValuePair(indexOrigin)
 
-fun <K, V> Set<Map.Entry<K, V>>.withIndexAndKeyValuePair(indexOrigin: Int = 0): Iterable<IndexedKeyValuePair<K, V>> =
-        this.withIndexBase(indexOrigin) {
-            calculatedIndex: Int, (key: K, value: V) -> IndexedKeyValuePair(calculatedIndex, key, value)
-        }
+fun <K, V> Collection<Map.Entry<K, V>>.withIndexAndKeyValuePair(indexOrigin: Int = 0): Iterable<IndexedKeyValuePair<K, V>> =
+        this.withIndexBase(indexOrigin) { it.toIndexedKeyValuePair() }
 
 private fun <T, R> Iterable<T>.withIndexBase(
-        indexOrigin: Int, toIndexedValue: (calculatedIndex: Int, value: T) -> R
+        indexOrigin: Int, toIndexedValue: (indexedValue: IndexedValue<T>) -> R
 ): Iterable<R> = object: Iterable<R> {
     private val indexedIterable: Iterable<IndexedValue<T>> = this@withIndexBase.withIndex()
 
@@ -32,8 +29,8 @@ private fun <T, R> Iterable<T>.withIndexBase(
             private val itr: Iterator<IndexedValue<T>> = indexedIterable.iterator()
 
             override fun next(): R {
-                val (index: Int, value: T) = itr.next()
-                return toIndexedValue(index + indexOrigin, value)
+                val indexedValue: IndexedValue<T> = itr.next()
+                return toIndexedValue(indexedValue.copy(index = indexedValue.index + indexOrigin))
             }
 
             override fun hasNext(): Boolean = itr.hasNext()
