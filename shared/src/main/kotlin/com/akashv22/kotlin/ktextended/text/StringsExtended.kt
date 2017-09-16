@@ -1,4 +1,4 @@
-package com.akashv22.kotlin.ktextended
+package com.akashv22.kotlin.ktextended.text
 
 fun CharSequence?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
 
