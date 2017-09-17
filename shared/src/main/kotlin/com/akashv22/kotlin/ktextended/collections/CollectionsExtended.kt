@@ -55,3 +55,23 @@ private fun <T, R> Iterable<T>.withIndexBase(
         }
     }
 }
+
+fun <K, V> Map.Entry<K, V>.toEntry(): Map.Entry<K, V> = this.toSimpleEntry()
+
+fun <K, V> Map.Entry<K, V>.toMutableEntry(): MutableMap.MutableEntry<K, V> = this.toSimpleMutableEntry()
+
+fun <K, V> Map.Entry<K, V>.toSimpleEntry(): SimpleMapEntry<K, V> = simpleMapEntryOf(this)
+
+fun <K, V> Map.Entry<K, V>.toSimpleMutableEntry(): SimpleMutableMapEntry<K, V> = simpleMutableMapEntryOf(this)
+
+fun <K, V> mapEntryOf(key: K, value: V): Map.Entry<K, V> = simpleMapEntryOf(key, value)
+
+fun <K, V> mutableMapEntryOf(key: K, value: V): MutableMap.MutableEntry<K, V> = simpleMutableMapEntryOf(key, value)
+
+fun <K, V> simpleMapEntryOf(key: K, value: V): SimpleMapEntry<K, V> = SimpleMapEntry(key, value)
+
+fun <K, V> simpleMapEntryOf(entry: Map.Entry<K, V>): SimpleMapEntry<K, V> = SimpleMapEntry(entry)
+
+fun <K, V> simpleMutableMapEntryOf(key: K, value: V): SimpleMutableMapEntry<K, V> = SimpleMutableMapEntry(key, value)
+
+fun <K, V> simpleMutableMapEntryOf(entry: Map.Entry<K, V>): SimpleMutableMapEntry<K, V> = SimpleMutableMapEntry(entry)
