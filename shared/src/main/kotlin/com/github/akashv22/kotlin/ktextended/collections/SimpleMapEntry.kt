@@ -1,4 +1,4 @@
-package com.akashv22.kotlin.ktextended.collections
+package com.github.akashv22.kotlin.ktextended.collections
 
 open header class SimpleMapEntry<K, V>: Map.Entry<K, V> {
     constructor(key: K, value: V)

@@ -1,4 +1,4 @@
-package com.akashv22.kotlin.ktextended.collections
+package com.github.akashv22.kotlin.ktextended.collections
 
 fun <T> Iterable<T>.getLastIndex(indexOrigin: Int = 0): Int = this.count() - 1 + indexOrigin
 

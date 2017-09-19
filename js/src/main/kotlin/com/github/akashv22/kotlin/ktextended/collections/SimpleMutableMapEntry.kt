@@ -1,4 +1,4 @@
-package com.akashv22.kotlin.ktextended.collections
+package com.github.akashv22.kotlin.ktextended.collections
 
 open impl class SimpleMutableMapEntry<K, V>(key: K, value: V): SimpleMapEntry<K, V>(key, value),
         MutableMap.MutableEntry<K, V> {

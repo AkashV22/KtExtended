@@ -1,4 +1,4 @@
-package com.akashv22.kotlin.ktextended.collections
+package com.github.akashv22.kotlin.ktextended.collections
 
 import java.util.AbstractMap
 

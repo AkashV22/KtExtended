@@ -1,4 +1,4 @@
-package com.akashv22.kotlin.ktextended.collections
+package com.github.akashv22.kotlin.ktextended.collections
 
 fun <K, V> Map<K, V>.getLastIndex(indexOrigin: Int = 0): Int = this.entries.getLastIndex(indexOrigin)
 
