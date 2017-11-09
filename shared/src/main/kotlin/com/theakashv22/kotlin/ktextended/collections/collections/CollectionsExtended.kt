@@ -41,21 +41,19 @@ fun <A, B> Iterable<Pair<A, B>>.withIndexAndPair(indexOrigin: Int = 0): Iterable
 fun <A, B, C> Iterable<Triple<A, B, C>>.withIndexAndTriple(indexOrigin: Int = 0): Iterable<IndexedTriple<A, B, C>> =
         this.withIndexBase(indexOrigin) { it.toIndexedTriple() }
 
-internal fun <T, R> Iterable<T>.withIndexBase(
+fun <T, R> Iterable<T>.withIndexBase(
         indexOrigin: Int, toIndexedValue: (indexedValue: IndexedValue<T>) -> R
 ): Iterable<R> = object: Iterable<R> {
     private val indexedIterable: Iterable<IndexedValue<T>> = this@withIndexBase.withIndex()
 
-    override fun iterator(): Iterator<R> {
-        return object: Iterator<R> {
-            private val itr: Iterator<IndexedValue<T>> = indexedIterable.iterator()
+    override fun iterator(): Iterator<R> = object: Iterator<R> {
+        private val itr: Iterator<IndexedValue<T>> = indexedIterable.iterator()
 
-            override fun next(): R {
-                val indexedValue: IndexedValue<T> = itr.next()
-                return toIndexedValue(indexedValue.copy(index = indexedValue.index + indexOrigin))
-            }
-
-            override fun hasNext(): Boolean = itr.hasNext()
+        override fun next(): R {
+            val indexedValue: IndexedValue<T> = itr.next()
+            return toIndexedValue(indexedValue.copy(index = indexedValue.index + indexOrigin))
         }
+
+        override fun hasNext(): Boolean = itr.hasNext()
     }
 }
