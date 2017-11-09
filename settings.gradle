@@ -1,1 +1,5 @@
 rootProject.name = 'ktextended'
+
+include 'shared'
+include 'jvm'
+include 'js'
