@@ -1,4 +1,4 @@
-group 'com.akashv22.ktextended'
+group 'com.theakashv22.ktextended'
 version '0.1.0-SNAPSHOT'
 
 allprojects {

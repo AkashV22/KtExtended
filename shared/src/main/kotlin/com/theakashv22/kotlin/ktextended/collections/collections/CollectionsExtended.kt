@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.collections
+package com.theakashv22.kotlin.ktextended.collections.collections
 
 fun <T> Iterable<T>.getLastIndex(indexOrigin: Int = 0): Int = this.count() - 1 + indexOrigin
 

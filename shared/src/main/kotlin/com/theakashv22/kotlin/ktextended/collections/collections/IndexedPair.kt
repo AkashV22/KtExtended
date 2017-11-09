@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.text
+package com.theakashv22.kotlin.ktextended.collections.collections
 
-fun CharSequence?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
-
-fun CharSequence?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
-
-fun CharSequence.toStringBuilder(): StringBuilder = StringBuilder(this)
-
-fun Iterable<CharSequence>.trimAll(): List<CharSequence> = this.map { it.trim() }
+data class IndexedPair<out A, out B>(val index: Int, val first: A, val second: B)

@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.collections
+package com.theakashv22.kotlin.ktextended.collections.text
 
-open class SimpleMapEntry<K, V>(override val key: K, override val value: V): Map.Entry<K, V> {
-    constructor(entry: Map.Entry<K, V>): this(entry.key, entry.value)
-}
+fun CharSequence?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
+
+fun CharSequence?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
+
+fun CharSequence.toStringBuilder(): StringBuilder = StringBuilder(this)
+
+fun Iterable<CharSequence>.trimAll(): List<CharSequence> = this.map { it.trim() }

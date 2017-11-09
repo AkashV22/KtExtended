@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.collections
+package com.theakashv22.kotlin.ktextended.collections.collections
 
 fun <K, V> Map<K, V>.getLastIndex(indexOrigin: Int = 0): Int = this.entries.getLastIndex(indexOrigin)
 

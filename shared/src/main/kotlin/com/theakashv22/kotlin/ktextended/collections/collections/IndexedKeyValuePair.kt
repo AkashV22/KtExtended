@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.collections
+package com.theakashv22.kotlin.ktextended.collections.collections
 
-data class IndexedPair<out A, out B>(val index: Int, val first: A, val second: B)
+data class IndexedKeyValuePair<out K, out V>(val index: Int, val key: K, val value: V)

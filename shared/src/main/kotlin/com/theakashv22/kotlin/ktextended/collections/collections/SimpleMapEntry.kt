@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.collections
+package com.theakashv22.kotlin.ktextended.collections.collections
 
-data class IndexedKeyValuePair<out K, out V>(val index: Int, val key: K, val value: V)
+open class SimpleMapEntry<K, V>(override val key: K, override val value: V): Map.Entry<K, V> {
+    constructor(entry: Map.Entry<K, V>): this(entry.key, entry.value)
+}

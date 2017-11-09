@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.akashv22.kotlin.ktextended.collections
+package com.theakashv22.kotlin.ktextended.collections.collections
 
 open class SimpleMutableMapEntry<K, V>(key: K, value: V): SimpleMapEntry<K, V>(key, value),
         MutableMap.MutableEntry<K, V> {
