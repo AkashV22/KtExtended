@@ -16,9 +16,17 @@
 
 package com.github.akashv22.kotlin.ktextended.collections
 
-open header class SimpleMutableMapEntry<K, V>: SimpleMapEntry<K, V>, MutableMap.MutableEntry<K, V> {
-    constructor(key: K, value: V)
-    constructor(entry: Map.Entry<K, V>)
+open class SimpleMutableMapEntry<K, V>(key: K, value: V): SimpleMapEntry<K, V>(key, value),
+        MutableMap.MutableEntry<K, V> {
+    constructor(entry: Map.Entry<K, V>): this(entry.key, entry.value)
+    private var _value: V = value
 
-    override fun setValue(newValue: V): V
+    override val value: V
+        get() = _value
+
+    override fun setValue(newValue: V): V {
+        val oldValue: V = this._value
+        this._value = newValue
+        return oldValue
+    }
 }
