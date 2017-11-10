@@ -16,4 +16,4 @@
 
 package com.theakashv22.kotlin.ktextended.system
 
-expect inline fun measureTimeMillis(block: () -> Unit): Long
+data class NanoTimeAndResult<T>(val nanoTime: Long, val result: T)
