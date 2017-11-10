@@ -16,4 +16,5 @@
 
 package com.theakashv22.kotlin.ktextended.dynamic
 
-internal inline fun <T, R> T.asDynamicThenCast(function: (dynamic) -> dynamic): R = function(this.asDynamic()) as R
+internal inline fun <reified T, reified R> T.asDynamicThenCast(function: (dynamic) -> dynamic): R =
+        function(this.asDynamic()) as R
