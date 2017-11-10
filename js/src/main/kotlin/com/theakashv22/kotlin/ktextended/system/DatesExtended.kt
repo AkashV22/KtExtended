@@ -16,41 +16,42 @@
 
 package com.theakashv22.kotlin.ktextended.system
 
+import com.theakashv22.kotlin.ktextended.dynamic.asDynamicThenCast
 import kotlin.js.Date
 
-fun Date.getDate(): Int = this.asDynamic().getDate() as Int
+fun Date.getDate(): Int = asDynamicThenCast { it.getDate() }
 
-fun Date.getDay(): Int = this.asDynamic().getDay() as Int
+fun Date.getDay(): Int = asDynamicThenCast { it.getDay() }
 
-fun Date.getFullYear(): Int = this.asDynamic().getFullYear() as Int
+fun Date.getFullYear(): Int = asDynamicThenCast { it.getFullYear() }
 
-fun Date.getHours(): Int = this.asDynamic().getHours() as Int
+fun Date.getHours(): Int = asDynamicThenCast { it.getHours() }
 
-fun Date.getMilliseconds(): Int = this.asDynamic().getMilliseconds() as Int
+fun Date.getMilliseconds(): Int = asDynamicThenCast { it.getMilliseconds() }
 
-fun Date.getMinutes(): Int = this.asDynamic().getMinutes() as Int
+fun Date.getMinutes(): Int = asDynamicThenCast { it.getMinutes() }
 
-fun Date.getMonth(): Int = this.asDynamic().getMonth() as Int
+fun Date.getMonth(): Int = asDynamicThenCast { it.getMonth() }
 
-fun Date.getSeconds(): Int = this.asDynamic().getSeconds() as Int
+fun Date.getSeconds(): Int = asDynamicThenCast { it.getSeconds() }
 
-fun Date.getTimezoneOffset(): Int = this.asDynamic().getTimezoneOffset() as Int
+fun Date.getTimezoneOffset(): Int = asDynamicThenCast { it.getTimezoneOffset() }
 
-fun Date.getUTCDate(): Int = this.asDynamic().getUTCDate() as Int
+fun Date.getUTCDate(): Int = asDynamicThenCast { it.getUTCDate() }
 
-fun Date.getUTCDay(): Int = this.asDynamic().getUTCDay() as Int
+fun Date.getUTCDay(): Int = asDynamicThenCast { it.getUTCDay() }
 
-fun Date.getUTCFullYear(): Int = this.asDynamic().getUTCFullYear() as Int
+fun Date.getUTCFullYear(): Int = asDynamicThenCast { it.getUTCFullYear() }
 
-fun Date.getUTCHours(): Int = this.asDynamic().getUTCHours() as Int
+fun Date.getUTCHours(): Int = asDynamicThenCast { it.getUTCHours() }
 
-fun Date.getUTCMilliseconds(): Int = this.asDynamic().getUTCMilliseconds() as Int
+fun Date.getUTCMilliseconds(): Int = asDynamicThenCast { it.getUTCMilliseconds() }
 
-fun Date.getUTCMinutes(): Int = this.asDynamic().getUTCMinutes() as Int
+fun Date.getUTCMinutes(): Int = asDynamicThenCast { it.getUTCMinutes() }
 
-fun Date.getUTCMonth(): Int = this.asDynamic().getUTCMonth() as Int
+fun Date.getUTCMonth(): Int = asDynamicThenCast { it.getUTCMonth() }
 
-fun Date.getUTCSeconds(): Int = this.asDynamic().getUTCSeconds() as Int
+fun Date.getUTCSeconds(): Int = asDynamicThenCast { it.getUTCSeconds() }
 
 @JsName("currentDate")
 fun dateOf(): Date = Date()
