@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:JvmName("TimingExtendedJvmKt")
+
 package com.theakashv22.kotlin.ktextended.system
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
