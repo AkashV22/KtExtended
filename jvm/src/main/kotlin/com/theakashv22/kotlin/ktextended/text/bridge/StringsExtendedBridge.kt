@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.theakashv22.kotlin.ktextended.text
+@file:JvmName("StringsExtendedBridgeJvmKt")
 
-fun CharSequence?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
+package com.theakashv22.kotlin.ktextended.text.bridge
 
-fun CharSequence?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
+internal fun toBooleanBridge(s: String): Boolean = s.toBoolean()
 
-fun CharSequence.toStringBuilder(): StringBuilder = StringBuilder(this)
-
-fun Iterable<CharSequence>.trimAll(): List<CharSequence> = this.map { it.trim() }
-
-expect fun String.concat(str: String): String
-
-expect fun String.toBoolean(): Boolean
-
-expect fun String.toCharArray(): CharArray
+internal fun toCharArrayBridge(s: String): CharArray = s.toCharArray()

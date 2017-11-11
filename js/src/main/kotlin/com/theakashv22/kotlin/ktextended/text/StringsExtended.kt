@@ -16,16 +16,14 @@
 
 package com.theakashv22.kotlin.ktextended.text
 
-fun CharSequence?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
+import com.theakashv22.kotlin.ktextended.text.bridge.concatBridge
 
-fun CharSequence?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
+actual fun String.concat(str: String): String = concatBridge(this, str)
 
-fun CharSequence.toStringBuilder(): StringBuilder = StringBuilder(this)
+actual fun String.toBoolean(): Boolean = this.toLowerCase() == "true"
 
-fun Iterable<CharSequence>.trimAll(): List<CharSequence> = this.map { it.trim() }
-
-expect fun String.concat(str: String): String
-
-expect fun String.toBoolean(): Boolean
-
-expect fun String.toCharArray(): CharArray
+actual fun String.toCharArray(): CharArray {
+    val result = CharArray(this.length)
+    this.forEachIndexed { index: Int, c: Char -> result[index] = c }
+    return result
+}

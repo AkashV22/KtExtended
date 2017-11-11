@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-package com.theakashv22.kotlin.ktextended.text
+package com.theakashv22.kotlin.ktextended.text.bridge
 
-fun CharSequence?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
-
-fun CharSequence?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
-
-fun CharSequence.toStringBuilder(): StringBuilder = StringBuilder(this)
-
-fun Iterable<CharSequence>.trimAll(): List<CharSequence> = this.map { it.trim() }
-
-expect fun String.concat(str: String): String
-
-expect fun String.toBoolean(): Boolean
-
-expect fun String.toCharArray(): CharArray
+internal fun concatBridge(s: String, str: String): String = s.concat(str)
