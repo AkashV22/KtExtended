@@ -16,8 +16,12 @@
 
 package com.theakashv22.kotlin.ktextended.system
 
-actual fun currentTimeMillis(): Long = now()
+import kotlin.js.Date
 
-actual inline fun measureTimeMillis(block: () -> Unit): Long = measureTimeAndGetResult(
-        { now() }, { runTime: Long, result: Unit ->  MillisAndResult<Unit>(runTime, result) }
-) { block() }.millis
+actual fun currentTimeMillis(): Long = Date.now().toLong()
+
+actual inline fun measureTimeMillis(block: () -> Unit): Long {
+    return measureTimeAndGetResult(
+            { Date.now().toLong() }, { runTime: Long, result: Unit ->  MillisAndResult(runTime, result) }
+    ) { block() }.millis
+}

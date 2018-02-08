@@ -20,10 +20,13 @@ expect fun currentTimeMillis(): Long
 
 expect inline fun measureTimeMillis(block: () -> Unit): Long
 
-inline fun <T> measureTimeMillisAndGetResult(function: (startTime: Long) -> T): MillisAndResult<T> =
-        measureTimeAndGetResult(
-                { currentTimeMillis() }, { runTime: Long, result: T -> MillisAndResult<T>(runTime, result) }, function
-        )
+inline fun <T> measureTimeMillisAndGetResult(function: (startTime: Long) -> T): MillisAndResult<T> {
+    return measureTimeAndGetResult(
+            { currentTimeMillis() },
+            { runTime: Long, result: T -> MillisAndResult<T>(runTime, result) },
+            function
+    )
+}
 
 inline fun <T, R> measureTimeAndGetResult(
         currentTimeFn: () -> Long, resultDataFn: (runTime: Long, result: T) -> R, function: (startTime: Long) -> T

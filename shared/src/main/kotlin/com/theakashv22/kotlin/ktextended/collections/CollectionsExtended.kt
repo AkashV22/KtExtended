@@ -35,25 +35,29 @@ fun <A, B, C> IndexedValue<Triple<A, B, C>>.toIndexedTriple(): IndexedTriple<A, 
 
 fun <T> Iterable<T>.withIndex(indexOrigin: Int): Iterable<IndexedValue<T>> = this.withIndexBase(indexOrigin) { it }
 
-fun <A, B> Iterable<Pair<A, B>>.withIndexAndPair(indexOrigin: Int = 0): Iterable<IndexedPair<A, B>> =
-        this.withIndexBase(indexOrigin) { it.toIndexedPair() }
+fun <A, B> Iterable<Pair<A, B>>.withIndexAndPair(indexOrigin: Int = 0): Iterable<IndexedPair<A, B>> {
+    return this.withIndexBase(indexOrigin) { it.toIndexedPair() }
+}
 
-fun <A, B, C> Iterable<Triple<A, B, C>>.withIndexAndTriple(indexOrigin: Int = 0): Iterable<IndexedTriple<A, B, C>> =
-        this.withIndexBase(indexOrigin) { it.toIndexedTriple() }
+fun <A, B, C> Iterable<Triple<A, B, C>>.withIndexAndTriple(indexOrigin: Int = 0): Iterable<IndexedTriple<A, B, C>> {
+    return this.withIndexBase(indexOrigin) { it.toIndexedTriple() }
+}
 
 fun <T, R> Iterable<T>.withIndexBase(
         indexOrigin: Int, toIndexedValue: (indexedValue: IndexedValue<T>) -> R
-): Iterable<R> = object: Iterable<R> {
-    private val indexedIterable: Iterable<IndexedValue<T>> = this@withIndexBase.withIndex()
+): Iterable<R> {
+    return object: Iterable<R> {
+        private val indexedIterable: Iterable<IndexedValue<T>> = this@withIndexBase.withIndex()
 
-    override fun iterator(): Iterator<R> = object: Iterator<R> {
-        private val itr: Iterator<IndexedValue<T>> = indexedIterable.iterator()
+        override fun iterator(): Iterator<R> = object: Iterator<R> {
+            private val itr: Iterator<IndexedValue<T>> = indexedIterable.iterator()
 
-        override fun next(): R {
-            val indexedValue: IndexedValue<T> = itr.next()
-            return toIndexedValue(indexedValue.copy(index = indexedValue.index + indexOrigin))
+            override fun next(): R {
+                val indexedValue: IndexedValue<T> = itr.next()
+                return toIndexedValue(indexedValue.copy(index = indexedValue.index + indexOrigin))
+            }
+
+            override fun hasNext(): Boolean = itr.hasNext()
         }
-
-        override fun hasNext(): Boolean = itr.hasNext()
     }
 }

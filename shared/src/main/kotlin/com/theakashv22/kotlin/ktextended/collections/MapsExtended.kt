@@ -18,8 +18,9 @@ package com.theakashv22.kotlin.ktextended.collections
 
 fun <K, V> Map<K, V>.getLastIndex(indexOrigin: Int = 0): Int = this.entries.getLastIndex(indexOrigin)
 
-fun <K, V> Map<K, V>.isLastIndex(currentIndex: Int, indexOrigin: Int = 0): Boolean =
-        this.entries.isLastIndex(currentIndex, indexOrigin)
+fun <K, V> Map<K, V>.isLastIndex(currentIndex: Int, indexOrigin: Int = 0): Boolean {
+    return this.entries.isLastIndex(currentIndex, indexOrigin)
+}
 
 fun <K, V> IndexedValue<Map.Entry<K, V>>.toIndexedKeyValuePair(): IndexedKeyValuePair<K, V> {
     val (index: Int, entry: Map.Entry<K, V>) = this
@@ -27,11 +28,15 @@ fun <K, V> IndexedValue<Map.Entry<K, V>>.toIndexedKeyValuePair(): IndexedKeyValu
     return IndexedKeyValuePair(index, key, value)
 }
 
-fun <K, V> Map<K, V>.withIndex(indexOrigin: Int = 0): Iterable<IndexedKeyValuePair<K, V>> =
-        this.entries.withIndexAndKeyValuePair(indexOrigin)
+fun <K, V> Map<K, V>.withIndex(indexOrigin: Int = 0): Iterable<IndexedKeyValuePair<K, V>> {
+    return this.entries.withIndexAndKeyValuePair(indexOrigin)
+}
 
-fun <K, V> Iterable<Map.Entry<K, V>>.withIndexAndKeyValuePair(indexOrigin: Int = 0): Iterable<IndexedKeyValuePair<K, V>> =
-        this.withIndexBase(indexOrigin) { it.toIndexedKeyValuePair() }
+fun <K, V> Iterable<Map.Entry<K, V>>.withIndexAndKeyValuePair(
+        indexOrigin: Int = 0
+): Iterable<IndexedKeyValuePair<K, V>> {
+    return this.withIndexBase(indexOrigin) { it.toIndexedKeyValuePair() }
+}
 
 fun <K, V> Map.Entry<K, V>.toEntry(): Map.Entry<K, V> = this.toSimpleEntry()
 

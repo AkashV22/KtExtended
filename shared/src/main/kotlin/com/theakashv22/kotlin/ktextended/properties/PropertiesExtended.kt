@@ -16,5 +16,6 @@
 
 package com.theakashv22.kotlin.ktextended.properties
 
-inline fun <T> toNonNullProp(propName: String, propFn: () -> T?): T = propFn() ?:
-                throw IllegalArgumentException("Property $propName has been changed by another thread.")
+inline fun <T> toNonNullProp(propName: String, propFn: () -> T?): T {
+    return propFn() ?: throw IllegalArgumentException("Property $propName has been changed by another thread.")
+}

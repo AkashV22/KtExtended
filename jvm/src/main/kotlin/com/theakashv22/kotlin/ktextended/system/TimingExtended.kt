@@ -22,9 +22,12 @@ actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
 actual inline fun measureTimeMillis(block: () -> Unit): Long = kotlin.system.measureTimeMillis(block)
 
-inline fun <T> measureNanoTimeAndGetResult(function: (startTime: Long) -> T): NanoTimeAndResult<T> =
-        measureTimeAndGetResult(
-                { nanoTime() }, { runTime: Long, result: T -> NanoTimeAndResult<T>(runTime, result) }, function
+inline fun <T> measureNanoTimeAndGetResult(function: (startTime: Long) -> T): NanoTimeAndResult<T> {
+        return measureTimeAndGetResult(
+                { nanoTime() },
+                { runTime: Long, result: T -> NanoTimeAndResult<T>(runTime, result) },
+                function
         )
+}
 
 fun nanoTime() = System.nanoTime()
