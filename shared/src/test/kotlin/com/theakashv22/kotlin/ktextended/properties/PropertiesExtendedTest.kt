@@ -18,17 +18,42 @@ package com.theakashv22.kotlin.ktextended.properties
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 class PropertiesExtendedTest {
+    // Tests for toNonNullProp(String, () -> T?)
+
     @Test
-    fun testToNotNullPropResolvesNonNullableVariablesCorrectly() {
-        val someProperties = SomeProperties(propA = "A", propB = "B")
-        assertEquals(expected = "A", actual = toNonNullProp("propA", someProperties::propA))
-        assertEquals(expected = "B", actual = toNonNullProp("propB", someProperties::propB))
-        assertNotNull(actual = toNonNullProp("propA", someProperties::propA))
-        assertNotNull(actual = toNonNullProp("propB", someProperties::propB))
+    fun testToNonNullPropFunctionResolvesNullableStringWithNonNullValue() {
+        assertEquals(
+                expected = "A",
+                actual = toNonNullProp("propA", getSomePropertiesWithValuesAAndB()::propA)
+        )
     }
+
+    @Test
+    fun testToNonNullPropFunctionResolvesNonNullableStringWithNonNullValue() {
+        assertEquals(
+                expected = "B",
+                actual = toNonNullProp("propB", getSomePropertiesWithValuesAAndB()::propB)
+        )
+    }
+
+    @Test
+    fun testToNonNullPropFunctionThrowsIllegalArgumentExceptionWhenValueIsChangedToNullSomewhereElse() {
+        val someProperties: SomeProperties = getSomePropertiesWithValuesAAndB()
+
+        var t: Throwable? = null
+        try {
+            someProperties.propA = null
+            toNonNullProp("propA", someProperties::propA)
+        } catch (e: IllegalArgumentException) {
+            t = e
+        }
+
+        assertEquals(expected = IllegalArgumentException::class, actual = if (t != null) t::class else null)
+    }
+
+    private fun getSomePropertiesWithValuesAAndB(): SomeProperties = SomeProperties(propA = "A", propB = "B")
 
     private data class SomeProperties(var propA: String?, var propB: String)
 }

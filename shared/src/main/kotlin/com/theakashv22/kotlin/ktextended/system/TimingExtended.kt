@@ -23,7 +23,7 @@ expect inline fun measureTimeMillis(block: () -> Unit): Long
 inline fun <T> measureTimeMillisAndGetResult(function: (startTime: Long) -> T): MillisAndResult<T> {
     return measureTimeAndGetResult(
             { currentTimeMillis() },
-            { runTime: Long, result: T -> MillisAndResult<T>(runTime, result) },
+            { runTime: Long, result: T -> MillisAndResult(runTime, result) },
             function
     )
 }
