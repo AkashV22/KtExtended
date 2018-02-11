@@ -19,6 +19,7 @@ package com.theakashv22.kotlin.ktextended.text
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotSame
 import kotlin.test.assertTrue
 
 class StringsExtendedTest {
@@ -62,27 +63,76 @@ class StringsExtendedTest {
     @Test
     fun testIsNotNullOrEmptyFunctionReturnsTrueIfStringOnlyHasWhitespaces() = assertTrue("   ".isNotNullOrEmpty())
 
-    // Tests for CharSequence?.toStringBuilder()
+    // Test for CharSequence?.toStringBuilder()
 
     @Test
     fun testToStringBuilderFunctionReturnsStringBuilderWithGivenString() {
         assertEquals(expected = "Team, unite up!", actual = "Team, unite up!".toStringBuilder().toString())
     }
 
+    // Tests for Iterable<CharSequence>.trimAll()
+
     @Test
-    fun testToStringBuilderFunctionReturnsStringBuilderWithGivenStringPlusAppendedString() {
-        assertEquals(expected = "Team, unite up!", actual = "Team".toStringBuilder().append(", unite up!").toString())
+    fun testTrimAllFunctionTrimsAllSuppliedStrings() {
+        val testData: List<String> = listOf(" a ", "b", " cde", "fgh ", "ijk", " lmn ", "o p", " q r", "s t ", " u v ")
+        val expectedResult: List<String> = listOf("a", "b", "cde", "fgh", "ijk", "lmn", "o p", "q r", "s t", "u v")
+        assertEquals(expected = expectedResult, actual = testData.trimAll())
     }
 
     @Test
-    fun testToStringBuilderFunctionReturnsStringBuilderWithGivenStringPlusAppendedNull() {
-        assertEquals(
-                expected = "The billion dollar mistake is the creation of the null value.",
-                actual = "The billion dollar mistake is the creation of the "
-                        .toStringBuilder()
-                        .append(null as CharSequence?)
-                        .append(" value.")
-                        .toString()
-        )
+    fun testTrimAllFunctionReturnsEmptyListIfGivenEmptyIterable() {
+        assertEquals(expected = listOf<String>(), actual = setOf<String>().trimAll())
+    }
+
+    @Test
+    fun testTrimAllFunctionReturnsNewList() {
+        assertNotSame(illegal = listOf("a", "b", "c"), actual = listOf("a", "b", "c").trimAll())
+    }
+
+    // Tests for String.concat(String)
+
+    @Test
+    fun testConcatFunctionConcatenatesTwoStrings() {
+        assertEquals(expected = "You're not Alexander!", actual = "You're not".concat(" Alexander!"))
+    }
+
+    @Test
+    fun testConcatFunctionConcatenatesBlankStrings() = assertEquals(expected = "", actual = "".concat(""))
+
+    @Test
+    fun testConcatFunctionConcatenatesEmptyStringsWithWhitespace() {
+        assertEquals(expected = "   ", actual = " ".concat("  "))
+    }
+
+    // Tests for String.toBoolean()
+
+    @Test
+    fun testToBooleanFunctionReturnsTrueForStringContainingTrueLowercase() = assertTrue("true".toBoolean())
+
+    @Test
+    fun testToBooleanFunctionReturnsTrueForStringContainingTrueUppercase() = assertTrue("TRUE".toBoolean())
+
+    @Test
+    fun testToBooleanFunctionReturnsTrueForStringContainingTrueMixedCase() = assertTrue("TrUe".toBoolean())
+
+    @Test
+    fun testToBooleanFunctionReturnsFalseForStringSurroundedWithWhitespace() = assertFalse(" true  ".toBoolean())
+
+    @Test
+    fun testToBooleanFunctionReturnsFalseForStringContainingFalse() = assertFalse("false".toBoolean())
+
+    @Test
+    fun testToBooleanFunctionReturnsFalseForStringContainingNonBooleanValue() = assertFalse("yes".toBoolean())
+
+    // Tests for String.toCharArray()
+
+    @Test
+    fun testToCharArrayFunctionReturnsCharArrayContainingGivenString() {
+        assertTrue(charArrayOf('A', 'w', 'e', 's', 'o', 'm', 'e', '!').contentEquals("Awesome!".toCharArray()))
+    }
+
+    @Test
+    fun testToCharArrayFunctionReturnsEmptyCharArrayIfGivenBlankString() {
+        assertTrue(charArrayOf().contentEquals("".toCharArray()))
     }
 }

@@ -20,7 +20,7 @@ import com.theakashv22.kotlin.ktextended.text.bridge.concatBridge
 
 actual fun String.concat(str: String): String = concatBridge(this, str)
 
-actual fun String.toBoolean(): Boolean = this.toLowerCase() == "true"
+actual fun String.toBoolean(): Boolean = this.equals(other = "true", ignoreCase = true)
 
 actual fun String.toCharArray(): CharArray {
     val result = CharArray(this.length)
