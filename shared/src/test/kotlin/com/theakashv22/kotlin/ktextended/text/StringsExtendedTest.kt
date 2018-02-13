@@ -25,6 +25,7 @@ import kotlin.test.assertTrue
 /**
  * Tests for functions in StringsExtended.kt
  */
+@Suppress("unused")
 class StringsExtendedTest {
     /**
      * Tests for CharSequence?.isNotNullOrBlank()
