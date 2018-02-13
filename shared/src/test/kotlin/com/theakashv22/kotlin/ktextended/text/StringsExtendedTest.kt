@@ -22,117 +22,145 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotSame
 import kotlin.test.assertTrue
 
+/**
+ * Tests for functions in StringsExtended.kt
+ */
 class StringsExtendedTest {
-    // Tests for CharSequence?.isNotNullOrBlank()
+    /**
+     * Tests for CharSequence?.isNotNullOrBlank()
+     */
+    class IsNotNullOrBlankExtensionFunctionForNullableCharSequenceTest {
+        @Test
+        fun testThisHavingACharacterReturnsTrue() = assertTrue("A".isNotNullOrBlank())
 
-    @Test
-    fun testIsNotNullOrBlankFunctionReturnsTrueIfStringHasACharacter() = assertTrue("A".isNotNullOrBlank())
+        @Test
+        fun testThisHavingCharactersReturnsTrue() = assertTrue(" AB C ".isNotNullOrBlank())
 
-    @Test
-    fun testIsNotNullOrBlankFunctionReturnsTrueIfStringHasCharacters() = assertTrue(" AB C ".isNotNullOrBlank())
+        @Test
+        fun testThisBeingNullReturnsFalse() = assertFalse(null.isNotNullOrBlank())
 
-    @Test
-    fun testIsNotNullOrBlankFunctionReturnsFalseIfStringIsNull() = assertFalse(null.isNotNullOrBlank())
+        @Test
+        fun testThisBeingEmptyReturnsFalse() = assertFalse("".isNotNullOrBlank())
 
-    @Test
-    fun testIsNotNullOrBlankFunctionReturnsFalseIfStringIsEmpty() = assertFalse("".isNotNullOrBlank())
+        @Test
+        fun testThisOnlyHavingAWhitespaceReturnsFalse() = assertFalse(" ".isNotNullOrBlank())
 
-    @Test
-    fun testIsNotNullOrBlankFunctionReturnsFalseIfStringOnlyHasAWhitespace() = assertFalse(" ".isNotNullOrBlank())
-
-    @Test
-    fun testIsNotNullOrBlankFunctionReturnsFalseIfStringOnlyHasWhitespaces() = assertFalse("   ".isNotNullOrBlank())
-
-    // Tests for CharSequence?.isNotNullOrEmpty()
-
-    @Test
-    fun testIsNotNullOrEmptyFunctionReturnsTrueIfStringHasACharacter() = assertTrue("A".isNotNullOrEmpty())
-
-    @Test
-    fun testIsNotNullOrEmptyFunctionReturnsTrueIfStringHasCharacters() = assertTrue(" AB C ".isNotNullOrEmpty())
-
-    @Test
-    fun testIsNotNullOrEmptyFunctionReturnsFalseIfStringIsNull() = assertFalse(null.isNotNullOrEmpty())
-
-    @Test
-    fun testIsNotNullOrEmptyFunctionReturnsFalseIfStringIsEmpty() = assertFalse("".isNotNullOrEmpty())
-
-    @Test
-    fun testIsNotNullOrEmptyFunctionReturnsTrueIfStringOnlyHasAWhitespace() = assertTrue(" ".isNotNullOrEmpty())
-
-    @Test
-    fun testIsNotNullOrEmptyFunctionReturnsTrueIfStringOnlyHasWhitespaces() = assertTrue("   ".isNotNullOrEmpty())
-
-    // Test for CharSequence?.toStringBuilder()
-
-    @Test
-    fun testToStringBuilderFunctionReturnsStringBuilderWithGivenString() {
-        assertEquals(expected = "Team, unite up!", actual = "Team, unite up!".toStringBuilder().toString())
+        @Test
+        fun testThisOnlyHavingWhitespacesReturnsFalse() = assertFalse("   ".isNotNullOrBlank())
     }
 
-    // Tests for Iterable<CharSequence>.trimAll()
+    /**
+     * Tests for CharSequence?.isNotNullOrEmpty()
+     */
+    class IsNotNullOrEmptyExtensionFunctionForNullableCharSequenceTest {
+        @Test
+        fun testThisHavingACharacterReturnsTrue() = assertTrue("A".isNotNullOrEmpty())
 
-    @Test
-    fun testTrimAllFunctionTrimsAllSuppliedStrings() {
-        val testData: List<String> = listOf(" a ", "b", " cde", "fgh ", "ijk", " lmn ", "o p", " q r", "s t ", " u v ")
-        val expectedResult: List<String> = listOf("a", "b", "cde", "fgh", "ijk", "lmn", "o p", "q r", "s t", "u v")
-        assertEquals(expected = expectedResult, actual = testData.trimAll())
+        @Test
+        fun testThisHavingCharactersReturnsTrue() = assertTrue(" AB C ".isNotNullOrEmpty())
+
+        @Test
+        fun testThisBeingNullReturnsFalse() = assertFalse(null.isNotNullOrEmpty())
+
+        @Test
+        fun testThisBeingEmptyReturnsFalse() = assertFalse("".isNotNullOrEmpty())
+
+        @Test
+        fun testThisOnlyHavingAWhitespaceReturnsTrue() = assertTrue(" ".isNotNullOrEmpty())
+
+        @Test
+        fun testThisOnlyHavingWhitespacesReturnsTrue() = assertTrue("   ".isNotNullOrEmpty())
     }
 
-    @Test
-    fun testTrimAllFunctionReturnsEmptyListIfGivenEmptyIterable() {
-        assertEquals(expected = listOf<String>(), actual = setOf<String>().trimAll())
+    /**
+     * Test for CharSequence?.toStringBuilder()
+     */
+    class ToStringBuilderExtensionFunctionForCharSequenceTest {
+        @Test
+        fun testThisReturnsStringBuilderWithValueOfThis() {
+            assertEquals(expected = "Team, unite up!", actual = "Team, unite up!".toStringBuilder().toString())
+        }
     }
 
-    @Test
-    fun testTrimAllFunctionReturnsNewList() {
-        assertNotSame(illegal = listOf("a", "b", "c"), actual = listOf("a", "b", "c").trimAll())
+    /**
+     * Tests for Iterable<CharSequence>.trimAll()
+     */
+    class TrimAllExtensionFunctionForIterableOfCharSequenceTest {
+        @Test
+        fun testThisReturnsListOfTrimmedValues() {
+            val testData: List<String> =
+                    listOf(" a ", "b", " cde", "fgh ", "ijk", " lmn ", "o p", " q r", "s t ", " u v ")
+            val expectedResult: List<String> = listOf("a", "b", "cde", "fgh", "ijk", "lmn", "o p", "q r", "s t", "u v")
+            assertEquals(expected = expectedResult, actual = testData.trimAll())
+        }
+
+        @Test
+        fun testThisBeingEmptyReturnsEmptyList() {
+            assertEquals(expected = listOf<String>(), actual = setOf<String>().trimAll())
+        }
+
+        @Test
+        fun testThisReturnsNewListInstance() {
+            assertNotSame(illegal = listOf("a", "b", "c"), actual = listOf("a", "b", "c").trimAll())
+        }
+
     }
 
-    // Tests for String.concat(String)
+    /**
+     * Tests for String.concat(String)
+     */
+    class ConcatExtensionFunctionForStringTest {
 
-    @Test
-    fun testConcatFunctionConcatenatesTwoStrings() {
-        assertEquals(expected = "You're not Alexander!", actual = "You're not".concat(" Alexander!"))
+        @Test
+        fun testThisConcatenatesValueOfThisAndAnother() {
+            assertEquals(expected = "You're not Alexander!", actual = "You're not".concat(" Alexander!"))
+        }
+
+        @Test
+        fun testThisWithBlankValueConcatenatesValueOfThisAndAnotherBlank() {
+            assertEquals(expected = "", actual = "".concat(""))
+        }
+
+        @Test
+        fun testThisWithWhitespaceValueConcatenatesValueOfThisAndAnotherWhitespace() {
+            assertEquals(expected = "   ", actual = " ".concat("  "))
+        }
+
     }
 
-    @Test
-    fun testConcatFunctionConcatenatesBlankStrings() = assertEquals(expected = "", actual = "".concat(""))
+    /**
+     *  Tests for String.toBoolean()
+     */
+    class ToBooleanExtensionFunctionForStringTest {
+        @Test
+        fun testThisContainingTrueLowercaseReturnsTrue() = assertTrue("true".toBoolean())
 
-    @Test
-    fun testConcatFunctionConcatenatesEmptyStringsWithWhitespace() {
-        assertEquals(expected = "   ", actual = " ".concat("  "))
+        @Test
+        fun testThisContainingTrueUppercaseReturnsTrue() = assertTrue("TRUE".toBoolean())
+
+        @Test
+        fun testThisContainingTrueMixedCaseReturnsTrue() = assertTrue("TrUe".toBoolean())
+
+        @Test
+        fun testThisSurroundedWithWhitespaceReturnsFalse() = assertFalse(" true  ".toBoolean())
+
+        @Test
+        fun testThisContainingFalseReturnsFalse() = assertFalse("false".toBoolean())
+
+        @Test
+        fun testThisContainingNonBooleanValueReturnsFalse() = assertFalse("yes".toBoolean())
     }
 
-    // Tests for String.toBoolean()
+    /**
+     * Tests for String.toCharArray()
+     */
+    class ToCharArrayFunctionForStringTest {
+        @Test
+        fun testThisReturnsCharArrayContainingValueOfThis() {
+            assertTrue(charArrayOf('A', 'w', 'e', 's', 'o', 'm', 'e', '!').contentEquals("Awesome!".toCharArray()))
+        }
 
-    @Test
-    fun testToBooleanFunctionReturnsTrueForStringContainingTrueLowercase() = assertTrue("true".toBoolean())
-
-    @Test
-    fun testToBooleanFunctionReturnsTrueForStringContainingTrueUppercase() = assertTrue("TRUE".toBoolean())
-
-    @Test
-    fun testToBooleanFunctionReturnsTrueForStringContainingTrueMixedCase() = assertTrue("TrUe".toBoolean())
-
-    @Test
-    fun testToBooleanFunctionReturnsFalseForStringSurroundedWithWhitespace() = assertFalse(" true  ".toBoolean())
-
-    @Test
-    fun testToBooleanFunctionReturnsFalseForStringContainingFalse() = assertFalse("false".toBoolean())
-
-    @Test
-    fun testToBooleanFunctionReturnsFalseForStringContainingNonBooleanValue() = assertFalse("yes".toBoolean())
-
-    // Tests for String.toCharArray()
-
-    @Test
-    fun testToCharArrayFunctionReturnsCharArrayContainingGivenString() {
-        assertTrue(charArrayOf('A', 'w', 'e', 's', 'o', 'm', 'e', '!').contentEquals("Awesome!".toCharArray()))
-    }
-
-    @Test
-    fun testToCharArrayFunctionReturnsEmptyCharArrayIfGivenBlankString() {
-        assertTrue(charArrayOf().contentEquals("".toCharArray()))
+        @Test
+        fun testThisWithBlankValueReturnsEmptyCharArray() = assertTrue(charArrayOf().contentEquals("".toCharArray()))
     }
 }

@@ -19,41 +19,48 @@ package com.theakashv22.kotlin.ktextended.properties
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * Tests for function in PropertiesExtended.kt
+ */
+@Suppress("unused")
 class PropertiesExtendedTest {
-    // Tests for toNonNullProp(String, () -> T?)
-
-    @Test
-    fun testToNonNullPropFunctionResolvesNullableStringWithNonNullValue() {
-        assertEquals(
-                expected = "A",
-                actual = toNonNullProp("propA", getSomePropertiesWithValuesAAndB()::propA)
-        )
-    }
-
-    @Test
-    fun testToNonNullPropFunctionResolvesNonNullableStringWithNonNullValue() {
-        assertEquals(
-                expected = "B",
-                actual = toNonNullProp("propB", getSomePropertiesWithValuesAAndB()::propB)
-        )
-    }
-
-    @Test
-    fun testToNonNullPropFunctionThrowsIllegalArgumentExceptionWhenValueIsChangedToNullSomewhereElse() {
-        val someProperties: SomeProperties = getSomePropertiesWithValuesAAndB()
-
-        var t: Throwable? = null
-        try {
-            someProperties.propA = null
-            toNonNullProp("propA", someProperties::propA)
-        } catch (e: IllegalArgumentException) {
-            t = e
+    /**
+     * Tests for toNonNullProp(String, () -> T?)
+     */
+    class ToNonNullPropFunctionTest {
+        @Test
+        fun testGettingNullablePropReturnsNonNullValue() {
+            assertEquals(
+                    expected = "A",
+                    actual = toNonNullProp("propA", getSomePropertiesWithValuesAAndB()::propA)
+            )
         }
 
-        assertEquals(expected = IllegalArgumentException::class, actual = if (t != null) t::class else null)
+        @Test
+        fun testGettingNonNullPropReturnsNonNullValue() {
+            assertEquals(
+                    expected = "B",
+                    actual = toNonNullProp("propB", getSomePropertiesWithValuesAAndB()::propB)
+            )
+        }
+
+        @Test
+        fun testChangingPropValueToNullAfterNullCheckResultsInIllegalArgumentException() {
+            val someProperties: SomeProperties = getSomePropertiesWithValuesAAndB()
+
+            var t: Throwable? = null
+            try {
+                someProperties.propA = null
+                toNonNullProp("propA", someProperties::propA)
+            } catch (e: IllegalArgumentException) {
+                t = e
+            }
+
+            assertEquals(expected = IllegalArgumentException::class, actual = if (t != null) t::class else null)
+        }
+
+        private fun getSomePropertiesWithValuesAAndB(): SomeProperties = SomeProperties(propA = "A", propB = "B")
+
+        private data class SomeProperties(var propA: String?, var propB: String)
     }
-
-    private fun getSomePropertiesWithValuesAAndB(): SomeProperties = SomeProperties(propA = "A", propB = "B")
-
-    private data class SomeProperties(var propA: String?, var propB: String)
 }
