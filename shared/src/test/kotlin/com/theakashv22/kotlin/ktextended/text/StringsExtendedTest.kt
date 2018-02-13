@@ -155,7 +155,7 @@ class StringsExtendedTest {
     /**
      * Tests for String.toCharArray()
      */
-    class ToCharArrayFunctionForStringTest {
+    class ToCharArrayExtensionFunctionForStringTest {
         @Test
         fun testThisReturnsCharArrayContainingValueOfThis() {
             assertTrue(charArrayOf('A', 'w', 'e', 's', 'o', 'm', 'e', '!').contentEquals("Awesome!".toCharArray()))
